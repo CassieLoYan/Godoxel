@@ -3072,8 +3072,8 @@ window_title = "Export to OBJ"
 access = 2
 filters = PoolStringArray( "*.obj" )
 show_hidden_files = true
-current_dir = "/home/victor/VoxelSoftware"
-current_path = "/home/victor/VoxelSoftware/"
+current_dir = "/"
+current_path = "/"
 script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -3094,8 +3094,8 @@ mode = 0
 access = 2
 filters = PoolStringArray( "*.png" )
 show_hidden_files = true
-current_dir = "/home/victor/VoxelSoftware"
-current_path = "/home/victor/VoxelSoftware/"
+current_dir = "/"
+current_path = "/"
 script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false
