@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://src/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Grid.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Assets/broom.png" type="Texture" id=8]
 [ext_resource path="res://src/VoxelWorld.gd" type="Script" id=9]
 [ext_resource path="res://WorldSpace/FileDialog.gd" type="Script" id=10]
+[ext_resource path="res://src/ColorPicker.gd" type="Script" id=11]
 
 [sub_resource type="SpatialMaterial" id=3]
 flags_transparent = true
@@ -1501,7 +1502,6 @@ __meta__ = {
 }
 
 [node name="FileDialog" type="FileDialog" parent="Control"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1520,6 +1520,20 @@ script = ExtResource( 10 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="ColorPicker" type="ColorPicker" parent="Control"]
+anchor_left = 0.991
+anchor_top = 0.555
+anchor_right = 1.0
+anchor_bottom = 0.555
+margin_left = -307.784
+margin_top = -206.0
+margin_right = -9.0
+margin_bottom = 206.0
+edit_alpha = false
+presets_enabled = false
+presets_visible = false
+script = ExtResource( 11 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 5 )
@@ -1540,3 +1554,4 @@ script = ExtResource( 9 )
 [connection signal="pressed" from="Control/Button" to="Control/FileDialog" method="_on_Button_pressed"]
 [connection signal="confirmed" from="Control/FileDialog" to="Control/FileDialog" method="_on_FileDialog_confirmed"]
 [connection signal="export_obj" from="Control/FileDialog" to="VoxelWorld" method="_on_FileDialog_export_obj"]
+[connection signal="color_changed" from="Control/ColorPicker" to="Control/ColorPicker" method="_on_ColorPicker_color_changed"]
