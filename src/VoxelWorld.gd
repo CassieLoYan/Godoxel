@@ -23,7 +23,7 @@ func has_voxel_in_point(point):
 func _ready():
 	yield(get_tree(),"idle_frame")
 	yield(get_tree(),"idle_frame")
-#	import_image(null)
+	import_image("res://Assets/endesga-64-1x.png",true)
 
 func create_material(path,name):
 	var file = File.new()
@@ -102,20 +102,26 @@ func export_to_obj(path,name):
 func _on_FileDialog_export_obj(path, name):
 	export_to_obj(path,name)
 
-func import_image(image):
+func import_image(image,palette):
 	var ima = Image.new()
 	ima.load(image)
 	var center = Vector2(ima.get_width()/2,ima.get_height()/2)
 	ima.lock()
 	var height = ima.get_height()
 	var width = ima.get_width()
+	var colours = []
 	for x in width:
 		for y in height:
 			var color = ima.get_pixelv(Vector2(x,y))
-			if !Global.has_colour(color):
-				Global.colour_ids[Global.current_colour].modulate=color
-				Global.materials[Global.current_colour].albedo_color=color
-				Global.current_colour+=1;
+			if !colours.has(color):
+				colours.append(color)
+	for i in Global.colour_ids:
+		if i.id<colours.size():
+			Global.change_colour(i.id,colours[i.id])
+		else:
+			Global.change_colour(i.id,Color(0.270588, 0.270588, 0.270588))
+	if palette:
+		return
 	var pixels_per_Frame = 10
 	var current_pixel = 0
 	for x in width:
@@ -127,7 +133,6 @@ func import_image(image):
 			if current_pixel==pixels_per_Frame:
 				yield(get_tree(),"idle_frame")
 				current_pixel=0
-			
 	ima.unlock()
 	return
 

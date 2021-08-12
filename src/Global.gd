@@ -40,6 +40,10 @@ func has_colour(color):
 			return true
 	return false
 
+func change_colour(id,colour):
+	colour_ids[id].modulate = colour
+	materials[id].albedo_color =  colour
+
 func get_id_from_colour(colour):
 	for i in colour_ids:
 		if i.modulate == colour:

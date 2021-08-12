@@ -86,7 +86,7 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="Control"]
-margin_right = 170.0
+margin_right = 186.0
 margin_bottom = 600.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -95,7 +95,7 @@ __meta__ = {
 [node name="ScrollContainer" type="ScrollContainer" parent="Control/PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 163.0
+margin_right = 179.0
 margin_bottom = 593.0
 
 [node name="GridContainer" type="GridContainer" parent="Control/PanelContainer/ScrollContainer" groups=[
@@ -2824,6 +2824,7 @@ margin_left = 60.0
 margin_top = 1180.0
 margin_right = 76.0
 margin_bottom = 1196.0
+color = Color( 0.270588, 0.270588, 0.270588, 1 )
 
 [node name="ColorRect477" parent="Control/PanelContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 margin_left = 80.0
@@ -3048,13 +3049,27 @@ __meta__ = {
 
 [node name="Button2" type="Button" parent="Control"]
 anchor_left = 1.0
-anchor_top = 1.0
+anchor_top = 0.908
 anchor_right = 1.0
+anchor_bottom = 0.908
+margin_left = -181.173
+margin_top = -49.8
+margin_right = -0.173218
+margin_bottom = 0.199951
+text = "IMPORT IMAGE AS MODEL"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Palette" type="Button" parent="Control"]
+anchor_left = 0.892
+anchor_top = 1.0
+anchor_right = 0.892
 anchor_bottom = 1.0
-margin_left = -100.0
-margin_top = -111.735
-margin_bottom = -61.7355
-text = "IMPORT"
+margin_left = -186.408
+margin_top = -50.0
+margin_right = -0.40802
+text = "IMPORT IMAGE AS PALETTE"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -3080,7 +3095,6 @@ __meta__ = {
 }
 
 [node name="FileDialog2" type="FileDialog" parent="Control"]
-visible = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -3089,7 +3103,7 @@ margin_left = -229.5
 margin_top = -126.0
 margin_right = 229.5
 margin_bottom = 126.0
-window_title = "Open a File"
+window_title = "Select Image To Import"
 mode = 0
 access = 2
 filters = PoolStringArray( "*.png" )
@@ -3134,6 +3148,7 @@ script = ExtResource( 9 )
 
 [connection signal="pressed" from="Control/Button" to="Control/FileDialog" method="_on_Button_pressed"]
 [connection signal="pressed" from="Control/Button2" to="Control/FileDialog2" method="_on_Button_pressed"]
+[connection signal="pressed" from="Control/Palette" to="Control/FileDialog2" method="_on_Palette_pressed"]
 [connection signal="confirmed" from="Control/FileDialog" to="Control/FileDialog" method="_on_FileDialog_confirmed"]
 [connection signal="export_obj" from="Control/FileDialog" to="VoxelWorld" method="_on_FileDialog_export_obj"]
 [connection signal="confirmed" from="Control/FileDialog2" to="Control/FileDialog2" method="_on_FileDialog2_confirmed"]

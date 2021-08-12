@@ -7,6 +7,7 @@ func _process(delta):
 
 
 func _on_ColorPicker_color_changed(color):
-	Global.colour_ids[Global.current_colour].modulate=color
-	Global.materials[Global.current_colour].albedo_color=color
+	Global.change_colour(Global.current_colour,color)
+#	Global.colour_ids[Global.current_colour].modulate=color
+#	Global.materials[Global.current_colour].albedo_color=color
 	
