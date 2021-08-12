@@ -49,6 +49,13 @@ func set_indicator_pos(position):
 	if collider is Voxel:
 		mesh.global_transform.origin=collider.global_transform.origin
 
+func create_voxel_at_point(point):
+	var new_voxel = voxel.instance()
+	voxel_world.add_child(new_voxel)
+	new_voxel.set_material(Global.current_colour)
+	new_voxel.global_transform.origin=point
+	return
+
 
 func _process(delta):
 	if Input.is_action_just_pressed("add"):
@@ -71,32 +78,20 @@ func _process(delta):
 		return
 
 func add_voxel():
-	var new_voxel = voxel.instance()
-	voxel_world.add_child(new_voxel)
-	new_voxel.set_material(Global.current_colour)
 	var point = get_collision_point()+(get_collision_normal()/4)
 	point.x=stepify(point.x,0.5)
 	point.z=stepify(point.z,0.5)
 	point.y=stepify(point.y-0.25,0.5)
-	new_voxel.global_transform.origin=point
+	create_voxel_at_point(point)
 	if mirroring[0]:
-		var new_voxel_m = voxel.instance()
-		voxel_world.add_child(new_voxel_m)
-		new_voxel_m.set_material(Global.current_colour)
 		point.x=-point.x
-		new_voxel_m.global_transform.origin=point
+		create_voxel_at_point(point)
 	if mirroring[1]:
-		var new_voxel_m = voxel.instance()
-		voxel_world.add_child(new_voxel_m)
-		new_voxel_m.set_material(Global.current_colour)
 		point.y=-point.y
-		new_voxel_m.global_transform.origin=point
+		create_voxel_at_point(point)
 	if mirroring[2]:
-		var new_voxel_m = voxel.instance()
-		voxel_world.add_child(new_voxel_m)
-		new_voxel_m.set_material(Global.current_colour)
 		point.z=-point.z
-		new_voxel_m.global_transform.origin=point
+		create_voxel_at_point(point)
 	return
 
 func remove_voxel():
