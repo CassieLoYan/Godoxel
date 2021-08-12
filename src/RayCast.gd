@@ -50,10 +50,13 @@ func set_indicator_pos(position):
 		mesh.global_transform.origin=collider.global_transform.origin
 
 func create_voxel_at_point(point):
+	if voxel_world.has_voxel_in_point(point):
+		return
 	var new_voxel = voxel.instance()
 	voxel_world.add_child(new_voxel)
 	new_voxel.set_material(Global.current_colour)
 	new_voxel.global_transform.origin=point
+	voxel_world.voxels[point]=new_voxel
 	return
 
 
@@ -101,7 +104,10 @@ func remove_voxel():
 	var collider = get_collider()
 	print(collider)
 	if collider is Voxel:
+		voxel_world.voxels.erase(collider.global_transform.origin)
 		collider.queue_free()
+
+
 
 func paint_voxel():
 	if !is_colliding():

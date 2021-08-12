@@ -12,8 +12,13 @@ var sizes = [
 	
 ]
 
+var voxels = {}
 
 
+func has_voxel_in_point(point):
+	if !(point in voxels):
+		return false
+	return true
 
 
 func create_material(path,name):
