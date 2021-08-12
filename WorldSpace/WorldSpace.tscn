@@ -3091,8 +3091,11 @@ margin_right = 229.5
 margin_bottom = 126.0
 window_title = "Open a File"
 mode = 0
+access = 2
 filters = PoolStringArray( "*.png" )
 show_hidden_files = true
+current_dir = "/home/victor/VoxelSoftware"
+current_path = "/home/victor/VoxelSoftware/"
 script = ExtResource( 12 )
 __meta__ = {
 "_edit_use_anchors_": false

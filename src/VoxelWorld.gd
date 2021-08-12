@@ -103,8 +103,8 @@ func _on_FileDialog_export_obj(path, name):
 	export_to_obj(path,name)
 
 func import_image(image):
-	var im = load(image) as StreamTexture
-	var ima = im.get_data() as Image
+	var ima = Image.new()
+	ima.load(image)
 	var center = Vector2(ima.get_width()/2,ima.get_height()/2)
 	ima.lock()
 	var height = ima.get_height()
@@ -122,7 +122,7 @@ func import_image(image):
 		for y in height:
 			var color = ima.get_pixelv(Vector2(x,y))
 			Global.current_colour=Global.get_id_from_colour(color)
-			create_voxel_at_point(Vector3((width-x)/2.0,(height-y)/2.0,0))
+			create_voxel_at_point(Vector3((width-x-center.x)/2.0,(height-y-center.y)/2.0,0))
 			current_pixel+=1
 			if current_pixel==pixels_per_Frame:
 				yield(get_tree(),"idle_frame")

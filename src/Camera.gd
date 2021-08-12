@@ -2,7 +2,7 @@ extends Position3D
 
 onready var cam = $Camera
 
-func _input(event):
+func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		if Input.is_action_pressed("rotate"):
 			rotation_degrees.x+=event.relative.y/3
