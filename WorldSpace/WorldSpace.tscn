@@ -1522,6 +1522,7 @@ __meta__ = {
 }
 
 [node name="ColorPicker" type="ColorPicker" parent="Control"]
+visible = false
 anchor_left = 0.991
 anchor_top = 0.555
 anchor_right = 1.0
