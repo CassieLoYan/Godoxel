@@ -6,7 +6,7 @@ enum {
 	PAINT
 }
 
-onready var voxel = preload("res://Voxel/Voxel.tscn")
+
 onready var cam = get_tree().get_nodes_in_group("cam")[0] as InterpolatedCamera
 onready var mesh = get_tree().get_nodes_in_group("mesh")[0] as MeshInstance
 onready var voxel_world = get_parent().get_node("VoxelWorld")
@@ -49,15 +49,15 @@ func set_indicator_pos(position):
 	if collider is Voxel:
 		mesh.global_transform.origin=collider.global_transform.origin
 
-func create_voxel_at_point(point):
-	if voxel_world.has_voxel_in_point(point):
-		return
-	var new_voxel = voxel.instance()
-	voxel_world.add_child(new_voxel)
-	new_voxel.set_material(Global.current_colour)
-	new_voxel.global_transform.origin=point
-	voxel_world.voxels[point]=new_voxel
-	return
+#func create_voxel_at_point(point):
+#	if voxel_world.has_voxel_in_point(point):
+#		return
+#	var new_voxel = voxel.instance()
+#	voxel_world.add_child(new_voxel)
+#	new_voxel.set_material(Global.current_colour)
+#	new_voxel.global_transform.origin=point
+#	voxel_world.voxels[point]=new_voxel
+#	return
 
 
 func _process(delta):
@@ -85,16 +85,16 @@ func add_voxel():
 	point.x=stepify(point.x,0.5)
 	point.z=stepify(point.z,0.5)
 	point.y=stepify(point.y-0.25,0.5)
-	create_voxel_at_point(point)
+	voxel_world.create_voxel_at_point(point)
 	if mirroring[0]:
 		point.x=-point.x
-		create_voxel_at_point(point)
+		voxel_world.create_voxel_at_point(point)
 	if mirroring[1]:
 		point.y=-point.y
-		create_voxel_at_point(point)
+		voxel_world.create_voxel_at_point(point)
 	if mirroring[2]:
 		point.z=-point.z
-		create_voxel_at_point(point)
+		voxel_world.create_voxel_at_point(point)
 	return
 
 func remove_voxel():

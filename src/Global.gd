@@ -17,7 +17,7 @@ func _ready():
 		var new_material = SpatialMaterial.new()
 		new_material.albedo_color=square.modulate
 		materials.append(new_material)
-	print(colour_ids)
+
 
 func switch_colour(new_colour):
 	current_colour=new_colour
@@ -33,6 +33,18 @@ func create_texture_colour() -> Image:
 		c+=1;
 	image.unlock()
 	return image
+
+func has_colour(color):
+	for i in colour_ids:
+		if i.modulate == color:
+			return true
+	return false
+
+func get_id_from_colour(colour):
+	for i in colour_ids:
+		if i.modulate == colour:
+			return i.id
+	return -1
 
 func export_to_obj():
 	return

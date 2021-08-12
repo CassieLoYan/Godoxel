@@ -1,5 +1,5 @@
 extends Spatial
-
+onready var voxel = preload("res://Voxel/Voxel.tscn")
 var sizes = [
 	Vector3(-0.25,-0.25,-0.25),
 	Vector3(0.25,-0.25,-0.25),
@@ -20,6 +20,10 @@ func has_voxel_in_point(point):
 		return false
 	return true
 
+func _ready():
+	yield(get_tree(),"idle_frame")
+	yield(get_tree(),"idle_frame")
+#	import_image(null)
 
 func create_material(path,name):
 	var file = File.new()
@@ -52,7 +56,6 @@ func export_to_obj(path,name):
 			new_vert-=i
 			#new_vert/=25.0
 			verts.append(new_vert)
-
 		var amount_of_faces = verts.size()-8
 		new_faces = [
 			Vector3(1+amount_of_faces, 2+amount_of_faces, 3+amount_of_faces),
@@ -98,3 +101,42 @@ func export_to_obj(path,name):
 
 func _on_FileDialog_export_obj(path, name):
 	export_to_obj(path,name)
+
+func import_image(image):
+	var im = load(image) as StreamTexture
+	var ima = im.get_data() as Image
+	var center = Vector2(ima.get_width()/2,ima.get_height()/2)
+	ima.lock()
+	var height = ima.get_height()
+	var width = ima.get_width()
+	for x in width:
+		for y in height:
+			var color = ima.get_pixelv(Vector2(x,y))
+			if !Global.has_colour(color):
+				Global.colour_ids[Global.current_colour].modulate=color
+				Global.materials[Global.current_colour].albedo_color=color
+				Global.current_colour+=1;
+	var pixels_per_Frame = 10
+	var current_pixel = 0
+	for x in width:
+		for y in height:
+			var color = ima.get_pixelv(Vector2(x,y))
+			Global.current_colour=Global.get_id_from_colour(color)
+			create_voxel_at_point(Vector3((width-x)/2.0,(height-y)/2.0,0))
+			current_pixel+=1
+			if current_pixel==pixels_per_Frame:
+				yield(get_tree(),"idle_frame")
+				current_pixel=0
+			
+	ima.unlock()
+	return
+
+func create_voxel_at_point(point):
+	if has_voxel_in_point(point):
+		return
+	var new_voxel = voxel.instance()
+	add_child(new_voxel)
+	new_voxel.set_material(Global.current_colour)
+	new_voxel.global_transform.origin=point
+	voxels[point]=new_voxel
+	return
