@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/Camera.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Grid.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://WorldSpace/FileDialog.gd" type="Script" id=10]
 [ext_resource path="res://src/ColorPicker.gd" type="Script" id=11]
 [ext_resource path="res://src/ImportImage.gd" type="Script" id=12]
+[ext_resource path="res://src/Grid.gd" type="Script" id=13]
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
@@ -23,15 +24,17 @@ uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id=2]
 material = SubResource( 1 )
-size = Vector2( 16, 16 )
+size = Vector2( 4.5, 4.5 )
 
 [sub_resource type="BoxShape" id=3]
-extents = Vector3( 8, 0.5, 8 )
+extents = Vector3( 2.25, 0.5, 2.25 )
 
 [sub_resource type="Environment" id=4]
 background_mode = 1
 background_color = Color( 0.666667, 0.666667, 0.666667, 1 )
+background_energy = 0.5
 ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 0.25
 
 [sub_resource type="SpatialMaterial" id=5]
 flags_transparent = true
@@ -63,6 +66,7 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 2.73205,
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0 )
 mesh = SubResource( 2 )
 material/0 = null
+script = ExtResource( 13 )
 
 [node name="StaticBody" type="StaticBody" parent="MeshInstance2"]
 
@@ -3130,6 +3134,35 @@ presets_enabled = false
 presets_visible = false
 script = ExtResource( 11 )
 
+[node name="HSlider" type="HSlider" parent="Control"]
+anchor_left = 0.893
+anchor_top = 0.048
+anchor_right = 0.893
+anchor_bottom = 0.048
+margin_left = -303.754
+margin_top = -0.0950298
+margin_right = 0.245544
+margin_bottom = 15.905
+min_value = 1.0
+max_value = 64.0
+value = 9.0
+tick_count = 16
+ticks_on_borders = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Control/HSlider"]
+anchor_left = 0.383
+anchor_top = -1.357
+anchor_right = 0.57
+anchor_bottom = -0.482
+margin_left = -0.109619
+margin_top = 0.00703049
+margin_right = 0.0423737
+margin_bottom = 0.00702906
+text = "Grid Size"
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 4 )
 
@@ -3154,3 +3187,4 @@ script = ExtResource( 9 )
 [connection signal="confirmed" from="Control/FileDialog2" to="Control/FileDialog2" method="_on_FileDialog2_confirmed"]
 [connection signal="start_import" from="Control/FileDialog2" to="VoxelWorld" method="import_image"]
 [connection signal="color_changed" from="Control/ColorPicker" to="Control/ColorPicker" method="_on_ColorPicker_color_changed"]
+[connection signal="value_changed" from="Control/HSlider" to="MeshInstance2" method="change_size"]
