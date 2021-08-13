@@ -59,17 +59,17 @@ func export_to_obj(path,name):
 		var amount_of_faces = verts.size()-8
 		new_faces = [
 			Vector3(1+amount_of_faces, 2+amount_of_faces, 3+amount_of_faces),
-			Vector3(2+amount_of_faces, 3+amount_of_faces, 4+amount_of_faces),
+			Vector3(4+amount_of_faces, 3+amount_of_faces, 2+amount_of_faces),
 			Vector3(2+amount_of_faces, 6+amount_of_faces, 4+amount_of_faces),
-			Vector3(6+amount_of_faces, 4+amount_of_faces, 8+amount_of_faces),
-			Vector3(5+amount_of_faces, 6+amount_of_faces, 7+amount_of_faces),
+			Vector3(8+amount_of_faces, 4+amount_of_faces, 6+amount_of_faces),
+			Vector3(7+amount_of_faces, 6+amount_of_faces, 5+amount_of_faces),
 			Vector3(6+amount_of_faces, 7+amount_of_faces, 8+amount_of_faces),
 			Vector3(5+amount_of_faces, 1+amount_of_faces, 3+amount_of_faces),
 			Vector3(3+amount_of_faces, 7+amount_of_faces, 5+amount_of_faces),
-			Vector3(3+amount_of_faces, 7+amount_of_faces, 4+amount_of_faces),
+			Vector3(4+amount_of_faces, 7+amount_of_faces, 3+amount_of_faces),
 			Vector3(4+amount_of_faces, 8+amount_of_faces, 7+amount_of_faces),
-			Vector3(1+amount_of_faces, 2+amount_of_faces, 5+amount_of_faces),
-			Vector3(2+amount_of_faces, 6+amount_of_faces, 5+amount_of_faces),
+			Vector3(5+amount_of_faces, 2+amount_of_faces, 1+amount_of_faces),
+			Vector3(5+amount_of_faces, 6+amount_of_faces, 2+amount_of_faces),
 		]
 		for i in 12:
 			colours.append(voxel.m_id+1)
@@ -128,7 +128,7 @@ func import_image(image,palette):
 		for y in height:
 			var color = ima.get_pixelv(Vector2(x,y))
 			Global.current_colour=Global.get_id_from_colour(color)
-			create_voxel_at_point(Vector3((width-x-center.x)/2.0,(height-y-center.y)/2.0,0))
+			create_voxel_at_point(Vector3((width-x-center.x)/2.0,(height-y)/2.0,0))
 			current_pixel+=1
 			if current_pixel==pixels_per_Frame:
 				yield(get_tree(),"idle_frame")
